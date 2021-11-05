@@ -13,8 +13,9 @@ const addContact = (newContact: AddressBook) => {
 
   const contacts = JSON.parse(contactString)
 
-  console.log(contactString)
-  console.log(contacts)
+  if (contacts) {
+    //
+  }
 }
 
 export { saveAddressBook, addContact }
