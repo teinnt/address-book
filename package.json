@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@chakra-ui/gatsby-plugin": "^2.0.1",
+    "@chakra-ui/icons": "^1.0.17",
     "@chakra-ui/react": "^1.6.6",
     "@cypress/react": "^5.9.4",
     "@cypress/webpack-dev-server": "^1.4.0",
