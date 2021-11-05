@@ -1,38 +1,28 @@
-name: Pull Request on Branch Master
+name: Node.js CI
 
 on:
   pull_request:
     branches: [master]
 
 jobs:
-  build-test-linter:
-    name: Build, Unit Test, and Linter
+  pull_request_validation:
+    name: Validate pull request
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: borales/actions-yarn@v2.3.0
+      - name: Install packages  
+        uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install
-      - uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build
-      - uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: test
-      - uses: borales/actions-yarn@v2.3.0
+      - name: Run linter
+        uses: borales/actions-yarn@v2.3.0
         with:
           cmd: run lint
-
-  merge-code-to-the-master-branch:
-    name: Auto merge
-    needs:
-      - build-test-linter
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: everlytic/branch-merge@1.1.0
+      - name: Build project
+        uses: borales/actions-yarn@v2.3.0
         with:
-          github_token: ${{ github.token }}
-          source_ref: ${{ github.ref }}
-          target_branch: 'master'
-          commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'
+          cmd: build
+      - name: Run tests
+        uses: borales/actions-yarn@v2.3.0
+        with:
+          cmd: test
