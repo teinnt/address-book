@@ -1,2 +1,6 @@
-# Starter-pump
-Start a Typescript-React project with Eslint-Airbnb, Prettier, Cypress, Husky, Github action, and Chakra
+# Address Book
+
+### Run the project
+
+1. Run `yarn` to install dependencies
+2. Run `yarn start` to start the local environment
