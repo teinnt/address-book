@@ -1,32 +1,55 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Grid } from '@chakra-ui/react'
+import { Grid, Stack, Text } from '@chakra-ui/react'
 
-import { routerUtils, sessions } from '../../utils'
+import { sessions } from '../../utils'
+import { Input, RoundButton } from '../../components'
 import Container from '../../components/Container'
-import { NewContactButton } from '../../components'
-import { AddressBook } from '../../utils/sessions'
 
 interface EditProps {}
 
 const Edit: React.FC<EditProps> = () => {
-  const [contact, setContact] = useState<AddressBook>()
+  const [name, setName] = useState('')
+  const [address, setAddress] = useState('')
+  const [nameError, setNameError] = useState('')
+  const [addressError, setAddressError] = useState('')
 
   const history = useHistory()
 
-  useEffect(() => {
-    const result = sessions.getContactDetail(routerUtils.getIdFromUrl())
-    if (!result) {
-      history.push('/address-book')
-    } else {
-      setContact(result)
+  const addNewAddress = () => {
+    const newAddress = {
+      name,
+      address,
     }
-  }, [history])
+
+    const error = sessions.addContact(newAddress)
+
+    if (error) {
+      setAddressError(error)
+    } else {
+      history.goBack()
+    }
+  }
 
   return (
-    <Container title={`Send to ${contact?.name}`}>
-      <Grid h="200px" minchildwidth="100%" gap="4">
-        <NewContactButton>New Contact</NewContactButton>
+    <Container title="Edit">
+      <Grid h="200px" minchildwidth="100%">
+        <Stack m="unset" mt="6" mb="2em" spacing={6}>
+          <Input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
+          {nameError && (
+            <Text mt="1" ml="4" color="#EE3D52" fontSize={['0.7em', '0.8em']}>
+              {nameError}
+            </Text>
+          )}
+
+          <Input placeholder="Ethereum address" value={address} onChange={(e) => setAddress(e.target.value)} />
+          {addressError && (
+            <Text mt="1" ml="4" color="#EE3D52" fontSize={['0.7em', '0.8em']}>
+              {addressError}
+            </Text>
+          )}
+        </Stack>
+        <RoundButton onClick={addNewAddress}>Save</RoundButton>
       </Grid>
     </Container>
   )
