@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { Avatar, Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Avatar, Button, Flex, Text } from '@chakra-ui/react'
 
 import { icons } from '../../utils'
 
