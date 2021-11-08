@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Avatar, Box, Button, Flex, Grid, Text } from '@chakra-ui/react'
+import { Avatar, Button, Flex, Grid, Text } from '@chakra-ui/react'
 
-import { addresses } from '../../utils'
 import useMetaMask from '../../hooks/useMetaMask'
 import Container from '../../components/Container'
 import { NewContactButton, RoundButton } from '../../components'
+import useContacts from '../../hooks/useContacts'
 
-interface AddressBookProps {}
+const AddressBook = () => {
+  const { disconnectMetaMask } = useMetaMask()
+  const { contacts } = useContacts()
 
-const AddressBook: React.FC<AddressBookProps> = () => {
-  const { userAccount, disconnectMetaMask } = useMetaMask()
   const history = useHistory()
 
   const handleDisconnect = async () => {
@@ -19,12 +19,12 @@ const AddressBook: React.FC<AddressBookProps> = () => {
   }
 
   const renderAddresses = () =>
-    addresses.map((address) => (
-      <Button h="fit-content" variant="unstyled" fontWeight="light" mb="4">
+    contacts?.map((contact) => (
+      <Button key={contact.name} h="fit-content" variant="unstyled" fontWeight="light" mb="4">
         <Flex alignItems="center" gridGap="4">
-          <Avatar name={address.name} color="white" bgColor="#8A96AA" />
+          <Avatar name={contact.name} color="white" bgColor="#8A96AA" />
           <Text width="fit-content" color="#495162">
-            {address.name}
+            {contact.name}
           </Text>
         </Flex>
       </Button>
@@ -32,7 +32,7 @@ const AddressBook: React.FC<AddressBookProps> = () => {
 
   return (
     <Container title="Address Book">
-      <Grid h="200px" minChildWidth="100%" minH="100vh">
+      <Grid h="200px" minchildwidth="100%" minH="100vh">
         <NewContactButton>New Contact</NewContactButton>
 
         {renderAddresses()}

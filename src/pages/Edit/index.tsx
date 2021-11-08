@@ -32,7 +32,7 @@ const Edit: React.FC<EditProps> = () => {
 
   return (
     <Container title="Address Book">
-      <Grid h="200px" minChildWidth="100%" gap="4">
+      <Grid h="200px" minchildwidth="100%" gap="4">
         <NewContactButton>New Contact</NewContactButton>
 
         {renderAddresses()}

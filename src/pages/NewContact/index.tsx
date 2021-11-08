@@ -9,8 +9,8 @@ import Container from '../../components/Container'
 interface NewContactProps {}
 
 const NewContact: React.FC<NewContactProps> = () => {
-  const [name, setName] = useState('')
-  const [address, setAddress] = useState('')
+  const [name, setName] = useState('Taylor Tran')
+  const [address, setAddress] = useState('0xA8c3a612E2b42b283250A19c73eA1ACdbdCeF38f')
   const [nameError, setNameError] = useState('')
   const [addressError, setAddressError] = useState('')
 
@@ -22,13 +22,18 @@ const NewContact: React.FC<NewContactProps> = () => {
       address,
     }
 
-    sessions.addContact(newAddress)
-    history.goBack()
+    const error = sessions.addContact(newAddress)
+
+    if (error) {
+      setAddressError(error)
+    } else {
+      history.goBack()
+    }
   }
 
   return (
     <Container title="New Contact">
-      <Grid h="200px" minChildWidth="100%">
+      <Grid h="200px" minchildwidth="100%">
         <Stack m="unset" mt="6" mb="2em" spacing={6}>
           <Input placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
           {nameError && (
