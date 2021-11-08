@@ -3,7 +3,7 @@ import { Button as ChakraButton, Text, useBreakpointValue } from '@chakra-ui/rea
 
 interface ButtonProps {
   bgColor?: 'orange' | 'blue' | 'white'
-  cb: (obj: any) => any
+  onClick: (obj: any, ...rest: any) => any
   children: string
 }
 
@@ -24,7 +24,7 @@ const getBgColor = (bgColor: string | undefined): string => {
   return bgColorValue
 }
 
-const Button = ({ bgColor, cb, children }: ButtonProps) => {
+const Button = ({ bgColor, onClick, children }: ButtonProps) => {
   const height = useBreakpointValue(['2.5em', '3.5em', '4em', '3em'])
   const fontSize = useBreakpointValue(['1em', '1.5em', '2em', '1em'])
   const textColor = bgColor === 'white' ? 'orange' : 'white'
@@ -38,10 +38,10 @@ const Button = ({ bgColor, cb, children }: ButtonProps) => {
       w="100%"
       bgColor={bgColorValue}
       color={textColor}
-      onClick={cb}
+      onClick={onClick}
       _hover={{
-        background: 'gray.100',
-        color: 'gray.400',
+        background: 'gray.300',
+        color: 'gray.600',
       }}
     >
       <Text fontSize={fontSize} fontWeight="light">

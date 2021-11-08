@@ -1,12 +1,14 @@
 import React from 'react'
 import { Route, Switch, withRouter } from 'react-router-dom'
 
-import { AddressBook, LandingPage, NotFound } from '.'
+import { AddressBook, Edit, LandingPage, NewContact, NotFound } from '.'
 
 function App(): JSX.Element {
   return (
     <Switch>
       <Route exact path="/" component={LandingPage} />
+      <Route exact path="/edit/:name" component={Edit} />
+      <Route exact path="/new-contact" component={NewContact} />
       <Route exact path="/address-book" component={AddressBook} />
       <Route component={NotFound} />
     </Switch>

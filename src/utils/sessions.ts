@@ -14,7 +14,7 @@ const addContact = (newContact: AddressBook) => {
   const contacts = JSON.parse(contactString)
 
   if (contacts) {
-    //
+    console.log(contacts)
   }
 }
 

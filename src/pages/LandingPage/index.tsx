@@ -3,12 +3,12 @@ import { useHistory } from 'react-router-dom'
 import { Center, Image, Text } from '@chakra-ui/react'
 
 import { icons } from '../../utils'
-import { Button } from '../../components'
+import { RoundButton } from '../../components'
 import useMetaMask from '../../hooks/useMetaMask'
 import { containerWidth, imageWidth, titleWidth, descriptionWidth } from './styles'
 
 function LandingPage(): JSX.Element {
-  const { userAccount, loadUserAccount } = useMetaMask()
+  const { userAccount, connectMetaMask } = useMetaMask()
 
   const history = useHistory()
 
@@ -30,7 +30,7 @@ function LandingPage(): JSX.Element {
         The easiest and quickest way to mange and pay your contacts. Connect your wallet to begin.
       </Text>
 
-      <Button cb={loadUserAccount}>Connect Wallet</Button>
+      <RoundButton onClick={connectMetaMask}>Connect Wallet</RoundButton>
     </Center>
   )
 }

@@ -1,23 +1,23 @@
 import React from 'react'
-import { Box } from '@chakra-ui/react'
+import { Box, Container as ChakraContainer } from '@chakra-ui/react'
 
 import Header from './Header'
 
 interface ContainerProps {
   title: string
   cb?: (obj: any) => any
-  children: string
+  children: React.ReactNode
 }
 
 const Container = ({ title, cb, children }: ContainerProps) => (
-  <>
-    <Header title={title} cb={cb} />
-    <Box>{children}</Box>
-  </>
+  <ChakraContainer width={['100vw', '100vw', '50vw']}>
+    <Header title={title} leftCb={cb} />
+    <Box mb="20">{children}</Box>
+  </ChakraContainer>
 )
 
 export default Container
 
 Container.defaultProps = {
-  cb: () => {},
+  cb: null,
 }

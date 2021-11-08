@@ -24,7 +24,13 @@ const loadMetaMask = async () => {
 const useMetaMask = () => {
   const [userAccount, setUserAccount] = useState('')
 
-  const loadUserAccount = async () => {
+  const disconnectMetaMask = async () => {
+    // disconnect metamask
+
+    setUserAccount('')
+  }
+
+  const connectMetaMask = async () => {
     const enabledMetaMask = await loadMetaMask()
 
     if (enabledMetaMask) {
@@ -41,7 +47,7 @@ const useMetaMask = () => {
     }
   }
 
-  return { userAccount, loadUserAccount }
+  return { userAccount, connectMetaMask, disconnectMetaMask }
 }
 
 export default useMetaMask
