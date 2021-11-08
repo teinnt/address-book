@@ -19,6 +19,17 @@ const getContacts = () => {
   return JSON.parse(contactString)
 }
 
+const getContactDetail = (name: string) => {
+  const contacts = getContacts()
+  const resolvedName = name.replace('%20', ' ')
+
+  if (contacts) {
+    return contacts.filter((contact: AddressBook) => contact.name === resolvedName)[0]
+  }
+
+  return null
+}
+
 const addContact = (newContact: AddressBook) => {
   const contacts = getContacts()
 
@@ -41,4 +52,4 @@ const isAlreadyExist = (contacts: AddressBook[], newContact: AddressBook) =>
 const sortContacts = (contacts: AddressBook[]) =>
   contacts.sort((a: AddressBook, b: AddressBook) => (a.name > b.name ? 1 : -1))
 
-export { saveAllContacts, getContacts, addContact }
+export { saveAllContacts, getContacts, getContactDetail, addContact }

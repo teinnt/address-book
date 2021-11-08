@@ -1,26 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { Avatar, Button, Flex, Grid, Text } from '@chakra-ui/react'
 
-import useMetaMask from '../../hooks/useMetaMask'
 import Container from '../../components/Container'
-import { NewContactButton, RoundButton } from '../../components'
 import useContacts from '../../hooks/useContacts'
+import { NewContactButton, RoundButton } from '../../components'
+import { AddressBook as AddressBookProps } from '../../utils/sessions'
+import { metamask } from '../../utils'
 
 const AddressBook = () => {
-  const { disconnectMetaMask } = useMetaMask()
   const { contacts } = useContacts()
 
   const history = useHistory()
 
   const handleDisconnect = async () => {
-    await disconnectMetaMask()
+    await metamask.disconnectMetamask()
     history.push('/')
+  }
+
+  const goToPage = (contact: AddressBookProps) => {
+    history.push(`/send/${contact.name}`)
   }
 
   const renderAddresses = () =>
     contacts?.map((contact) => (
-      <Button key={contact.name} h="fit-content" variant="unstyled" fontWeight="light" mb="4">
+      <Button
+        onClick={() => goToPage(contact)}
+        key={contact.name}
+        h="fit-content"
+        variant="unstyled"
+        fontWeight="light"
+        mb="4"
+      >
         <Flex alignItems="center" gridGap="4">
           <Avatar name={contact.name} color="white" bgColor="#8A96AA" />
           <Text width="fit-content" color="#495162">

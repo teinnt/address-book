@@ -1,5 +1,6 @@
 export { default as Edit } from './Edit'
 export { default as NotFound } from './NotFound'
+export { default as SendMoney } from './SendMoney'
 export { default as NewContact } from './NewContact'
 export { default as LandingPage } from './LandingPage'
 export { default as AddressBook } from './AddressBook'

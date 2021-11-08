@@ -17,7 +17,7 @@ const useContacts = () => {
     setContacts(sessions.getContacts() || null)
   }, [])
 
-  return { contacts, updateContact }
+  return { contacts }
 }
 
 export default useContacts

@@ -1,45 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Avatar, Button, Flex, Grid, Text } from '@chakra-ui/react'
+import { Grid } from '@chakra-ui/react'
 
-import { addresses } from '../../utils'
-import useMetaMask from '../../hooks/useMetaMask'
+import { routerUtils, sessions } from '../../utils'
 import Container from '../../components/Container'
-import { NewContactButton, RoundButton } from '../../components'
+import { NewContactButton } from '../../components'
+import { AddressBook } from '../../utils/sessions'
 
 interface EditProps {}
 
 const Edit: React.FC<EditProps> = () => {
-  const { userAccount, disconnectMetaMask } = useMetaMask()
+  const [contact, setContact] = useState<AddressBook>()
+
   const history = useHistory()
 
-  const handleDisconnect = async () => {
-    await disconnectMetaMask()
-    history.push('/')
-  }
-
-  const renderAddresses = () =>
-    addresses.map((address) => (
-      <Button>
-        <Flex alignItems="center" gridGap="4">
-          <Avatar name={address.name} color="white" bgColor="#8A96AA" />
-          <Text width="fit-content" color="#495162">
-            {address.name}
-          </Text>
-        </Flex>
-      </Button>
-    ))
+  useEffect(() => {
+    const result = sessions.getContactDetail(routerUtils.getIdFromUrl())
+    if (!result) {
+      history.push('/address-book')
+    } else {
+      setContact(result)
+    }
+  }, [history])
 
   return (
-    <Container title="Address Book">
+    <Container title={`Send to ${contact?.name}`}>
       <Grid h="200px" minchildwidth="100%" gap="4">
         <NewContactButton>New Contact</NewContactButton>
-
-        {renderAddresses()}
-
-        <RoundButton bgColor="blue" onClick={handleDisconnect}>
-          Disconnect
-        </RoundButton>
       </Grid>
     </Container>
   )
