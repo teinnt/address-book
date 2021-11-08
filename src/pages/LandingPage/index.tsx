@@ -2,34 +2,32 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Center, Image, Text } from '@chakra-ui/react'
 
-import { icons } from '../../utils'
-import { Button } from '../../components'
-import useMetaMask from '../../hooks/useMetaMask'
+import { icons, metamask } from '../../utils'
+import { RoundButton } from '../../components'
+import { containerWidth, imageWidth, titleWidth, descriptionWidth } from './styles'
 
 function LandingPage(): JSX.Element {
-  const { userAccount, loadUserAccount } = useMetaMask()
-
   const history = useHistory()
 
   useEffect(() => {
-    if (userAccount) {
+    if (metamask) {
       history.push('address-book')
     }
-  }, [history, userAccount])
+  }, [history])
 
   return (
-    <Center margin="auto" maxWidth={['100%', '80%', '90%', '60%']} flexDirection="column" alignItems="center" h="100vh">
-      <Image mb="6" w={['50%', '40%', '60%', '30%', '10%']} src={icons.metamask} alt="Item" />
+    <Center margin="auto" maxWidth={containerWidth} flexDirection="column" alignItems="center" h="100vh">
+      <Image mb="6" w={imageWidth} src={icons.metamask} alt="Metamask" />
 
-      <Text fontWeight="bold" mb="4" fontSize={['1.5em', '2em', '3em', '1em']} color="#646464" textAlign="center">
+      <Text fontWeight="bold" mb="4" fontSize={titleWidth} color="#646464" textAlign="center">
         Crypto address book
       </Text>
 
-      <Text mb="10" fontSize={['0.8em', '1.5em', '2em', '1em']} textAlign="center">
+      <Text mb="10" fontSize={descriptionWidth} textAlign="center">
         The easiest and quickest way to mange and pay your contacts. Connect your wallet to begin.
       </Text>
 
-      <Button cb={loadUserAccount}>Connect Wallet</Button>
+      <RoundButton onClick={metamask.connectMetaMask}>Connect Wallet</RoundButton>
     </Center>
   )
 }

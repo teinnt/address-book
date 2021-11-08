@@ -1,4 +1,5 @@
 import metamask from '../assets/images/metamask.png'
+import goBack from '../assets/images/goBack.png'
+import plus from '../assets/images/plus.png'
 
-// eslint-disable-next-line import/prefer-default-export
-export { metamask }
+export { metamask, goBack, plus }
